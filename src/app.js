@@ -1,4 +1,4 @@
-const fs = require('fs');
+const { createReadStream, createWriteStream } = require('fs');
 const csvParser = require('csv-parser');
 
 const csvFilePath = 'src/training-file/JavaScript Hooks Training - Day - 1.csv';
@@ -17,8 +17,8 @@ const transformCsvToJson = ({ question, answer }) => {
 };
 
 const convertCsvToJsonl = async () => {
-  const csvStream = fs.createReadStream(csvFilePath);
-  const jsonlStream = fs.createWriteStream(jsonlFilePath);
+  const csvStream = createReadStream(csvFilePath);
+  const jsonlStream = createWriteStream(jsonlFilePath);
 
   csvStream.pipe(csvParser())
     .on('data', (data) => {

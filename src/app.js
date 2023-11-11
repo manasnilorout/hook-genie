@@ -1,18 +1,19 @@
 const fs = require('fs');
 const csvParser = require('csv-parser');
 
-const csvFilePath = './input.csv';
-const jsonlFilePath = './output.jsonl';
+const csvFilePath = 'src/training-file/JavaScript Hooks Training - Day - 1.csv';
+const jsonlFilePath = './src/output/output.jsonl';
 
-const transformCsvToJson = (csvData) => {
-  const jsonData = csvData.map((row) => {
-    const obj = {};
-    for (let i = 0; i < row.length; i++) {
-      obj[`header${i + 1}`] = row[i];
-    }
-    return JSON.stringify(obj);
+const transformCsvToJson = ({ question, answer }) => {
+  const jsonData = JSON.stringify({
+    messages: [
+      { role: 'system', content: 'Hook Genie is an assistant created to help developers in generating javascript hooks' },
+      { role: 'user', content: question },
+      { role: 'assistant', content: answer }
+    ]
   });
-  return jsonData.join('\n');
+
+  return jsonData + '\n';
 };
 
 const convertCsvToJsonl = async () => {
@@ -21,7 +22,7 @@ const convertCsvToJsonl = async () => {
 
   csvStream.pipe(csvParser())
     .on('data', (data) => {
-      const jsonData = transformCsvToJson([data]);
+      const jsonData = transformCsvToJson(data);
       jsonlStream.write(jsonData);
     })
     .on('end', () => {

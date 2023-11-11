@@ -1,0 +1,609 @@
+question,answer
+What are hooks?,Hooks are custom JavaScript functions that allow you to execute code before or after an API request or response.
+What do hooks in API enable?,Hooks enable custom JavaScript execution before an API request and after the API provider sends a response.
+What are the types of hooks available when creating an element?,There are two types of hooks when creating an element: global hooks and resource hooks.
+What is the difference between global hooks and resource hooks?,"Global hooks happen on every request or response, while resource hooks happen only on requests to and responses from specific endpoints."
+What can hooks be used for?,Hooks can be used to manipulate any part of a request or response or to operate on a configuration.
+In what scenarios might one need a hook?,"One might need a hook due to endpoint authentication, sending a value to an endpoint of a different data type than what Cloud Elements supports, or to manipulate headers to extract an ID to include in a response."
+What should be referred to for use cases of hooks?,You can refer to Examples (presumably a section in the original document or website) for more use cases of hooks.
+Where can you find more information about hooks?,You can find more information about hooks in the Cloud Elements documentation here https://docs.cloud-elements.com/home/element-builder-setup-hooks
+What is a global hook?,A global hook is a custom JavaScript function that applies to all requests or responses configured for an element.
+What is a resource hook?,A resource hook is a custom JavaScript function that applies to requests or responses configured for a specific endpoint.
+What is a pre-request hook?,A pre-request hook is a custom JavaScript function that executes prior to sending API requests.
+What is a post-response hook?,A post-response hook is a custom JavaScript function that executes after receiving a response from an API provider.
+What is a javascript hook in Cloud Elements or Integration Service?,"In the context of programming, a hook is a function or a piece of code that is triggered to run either before (pre-hook) or after (post-hook) a specific event, such as an API request or a response. Hooks enable developers to enhance or add functionality to a system without making direct modifications to the system's source code.
+
+JavaScript hooks are used to perform custom processing of data before sending an API request or after receiving an API response. They were used to manipulate headers, request bodies, and response data as well as execute other custom actions based on specific conditions. Different hooks allowed communication with other scripts or services via HTTPS.
+
+The hook's body contains the logic to be executed, and often ends with a call to the done function, which signals the continuation or the end of the process based on the parameters provided to done. For instance, the done function may be called with an object that includes manipulated headers or body to be used in an API request or response.
+
+In some cases, these hooks are used to integrate with third-party services or libraries. Lodash, Util, and HTTPS are examples of JavaScript libraries that may be used within a hook. In some other cases, hooks are used to handle specific request methods like DELETE or alter element configurations.
+
+Overall, JavaScript hooks serve as flexible tools to insert custom code in order to handle, process and manipulate an application's request-response lifecycle."
+What is the purpose of the request_body parameter?,The request_body parameter contains the incoming request HTTP body.
+What is the purpose of the request_body_map parameter?,The request_body_map parameter is a representation of the request_body parameter that has been converted to a MAP for easier script access.
+What is the purpose of the request_headers parameter?,The request_headers parameter contains the incoming request headers for the current API call.
+What is the purpose of the request_path parameter?,The request_path parameter contains the incoming request path for the current API call.
+What is the purpose of the request_parameters parameter?,The request_parameters parameter contains the incoming query parameters for the current API request.
+What is the purpose of the request_vendor_parameters parameter?,The request_vendor_parameters parameter contains the incoming vendor query parameters for the current API request.
+What is the purpose of the request_method parameter?,The request_method parameter contains the request HTTP method.
+What is the purpose of the request_vendor_method parameter?,The request_vendor_method parameter contains the request vendor HTTP method.
+What is the purpose of the request_vendor_path parameter?,The request_vendor_path parameter contains the request path for the vendor.
+What is the purpose of the request_vendor_headers parameter?,The request_vendor_headers parameter contains the request vendor HTTP headers.
+What is the purpose of the request_vendor_body parameter?,The request_vendor_body parameter contains the request vendor HTTP body.
+What is the purpose of the request_vendor_body_map parameter?,The request_vendor_body_map parameter is a representation of the request_vendor_body parameter that has been converted to a MAP for easier script access.
+What is the purpose of the request_vendor_url parameter?,The request_vendor_url parameter contains the request vendor URL.
+What is the purpose of the request_expression parameter?,"The request_expression parameter contains the CEQL where parameter of the resource, converted to a List of Map containing ""value, operator, attribute"" to construct the search operation that the endpoint needs."
+What is the purpose of the request_previous_response parameter?,The request_previous_response parameter contains the response value of a previous request if the current endpoint is part of a response chain. This value can be used to construct the final response from chained API calls.
+What is the purpose of the request_previous_response_headers parameter?,The request_previous_response_headers parameter contains the response headers of a previous request if the current endpoint is part of a response chain. This value can be used to construct the final response from chained API calls.
+What is the purpose of the meta_data parameter?,The meta_data parameter contains metadata about the object.
+What is the purpose of the configuration parameter?,The configuration parameter contains the Element's configuration object.
+What is the purpose of the vendor_object_name parameter?,The vendor_object_name parameter contains the object name for the vendor. This is represented as a string.
+What is the purpose of the metadata_merge parameter?,"The metadata_merge parameter is a function that is applicable for the endpoint /objects/{objectName}/metadata. If set to true when vendors support metadata and post hook returns CE format of vendor metadata, it merges the vendor’s metadata with CE model metadata."
+What is the purpose of the done parameter?,The done parameter is the callback function that must be called at the end of the JavaScript function.
+What is the purpose of the console.log statement?,The console.log statement allows you to log data to the JavaScript console for debugging purposes.
+What version of JavaScript is supported in formulas?,ES6 (JavaScript 2015) is supported in hooks.
+Can I modify the function parameters directly?,"No, function parameters are immutable and cannot be modified directly. To change an object or value passed into the function, first copy it to your own local variable and then make the necessary changes."
+When are body variables applicable?,"Body variables (request_body) are only applicable to methods that pass a JSON body, such as POST, PATCH, and PUT. They are undefined or null if there is no JSON body sent."
+How do I add a new line character to a string in the JavaScript editor?,"Since the JavaScript editor in Element Builder parses the \n character and adds a new line, to add a new line character, you must escape the \n by adding an additional slash. For example, the \n character would be entered as \\n."
+What is the purpose of the done function?,The done function is a callback function that must be called at the end of the JavaScript function to indicate that the function has finished executing.
+What can the done function pass as an argument?,The done function can pass a continue object as an argument. This object indicates that the API request should continue to be processed and that any new objects should overwrite the existing incoming objects to this function.
+What happens if the done function is not called?,"If the done function is not called, the JavaScript function will continue to execute indefinitely. This can lead to performance issues and unexpected behavior."
+When should the done function be called?,"The done function should be called after all the necessary processing has been completed. This may include tasks such as manipulating the request or response, accessing the metadata, or calling other functions."
+What is the purpose of the continue object?,The continue object is used to indicate that the API request should continue to be processed. It can also be used to overwrite the existing incoming objects with new objects.
+Give an example of calling done function,"`javascript\n//Calling done function with continue\ndone({\ncontinue: true,\nrequest_vendor_parameters: new_request_vendor_parameters\n});`"
+What is the purpose of the done function in this context?,The done function is used to signal that the JavaScript function has finished executing and to provide additional information about how the API request should be processed.
+What does the continue property in the done function indicate?,"The continue property indicates whether or not the API request should continue to be processed. If set to true, the request will continue; if set to false, the request will be stopped."
+What does the request_vendor_parameters property in the done function do?,The request_vendor_parameters property is used to overwrite the existing request vendor parameters with new parameters. These new parameters will be used when sending the request to the vendor.
+In what situations would you use a continue value of false in a pre-hook?,You would use a continue value of false in a pre-hook if you want to stop the execution of the API request at that point and return a response. This can be useful for customizing a response or handling errors.
+What happens if a request has a postHook when you send a continue value of false in a pre-hook?,"If a request has a postHook, it will be executed before the response is returned. This allows you to further customize the response before it is sent to the client."
+What is the role of the done function in a hook?,"The done function is a callback that should be called to end the function. It can pass a continue object, indicating that the API request should continue to be processed, and any new objects that should overwrite the existing incoming objects."
+What does the object passed to the done function indicate?,"The object passed to the done function can contain a 'continue' value, which when true, indicates that the API request should continue to be processed, and 'request_vendor_parameters', which will overwrite the existing request vendor parameters."
+What happens if false is sent as the 'continue' value in a pre-hook?,"If false is sent as the 'continue' value in a pre-hook, the execution stops at this point and returns the response. If the request has a postHook, then it will execute that before returning. This can be used to further customize a response."
+What does the 'request_vendor_parameters' key in the done function's object represent?,"In the given example, the 'request_vendor_parameters' returned will overwrite the request vendor parameters that need to be sent to the endpoint."
+Can you provide an example of how the done function can be used in a hook?,"Sure, let's say we have new parameters ready to overwrite the existing vendor-specific request parameters. An example use of done function would look something like this: javascript done({ ""continue"": true, ""request_vendor_parameters"": new_request_vendor_parameters }); In this example, continue being true indicates the API request should continue to be processed. The new request_vendor_parameters will overwrite the existing ones that are due to be sent to the endpoint."
+What is the CE library in context?,CE is a custom library that provides common functionality. It doesn't need to be required because it's available by default.
+What does the function CE.randomString() do?,The function CE.randomString() generates a random string that is approximately 10 characters long.
+What is the purpose of the function CE.randomEmail()?,The function CE.randomEmail() is used to generate a random email address.
+How is the function CE.md5(str) used?,The function CE.md5(str) is used to create an MD5 hash from a string value. It takes a string as a parameter and returns a string.
+What does the function CE.b64(str) do?,CE.b64(str) is a function that encodes a string in base64. It takes a string as a parameter and returns a string.
+How does the function CE.decode64(str) work?,"CE.decode64(str) is a function that decodes a string from base64, using UTF-8 encoding. It takes a string as a parameter and returns a string."
+What is the purpose of the CE.hmac function?,"The CE.hmac function is used to HMAC hash a string using the provided secret, algorithm, and encoding. The Node.js crypto documentation provides more information about the algorithm and encoding parameters."
+What are the convenience functions provided by the CE library for HMAC hashing?,"The CE library provides a set of convenience functions that allow HMAC hashing using common algorithms and encodings. An example is the CE.hmacSha1Hex(secret, str) function, which creates an HMAC SHA1 hash of the provided string using the provided secret, and returns a hex string."
+How is the Lodash library used in this context?,"The popular lodash library can be used by requiring it in your script. It's also possible to use the library modules, such as lodash/fp."
+How can the standard Node util library be used?,The standard Node util library can be used by requiring it in your script.
+How to generate a Base64 encoded string using the CE library?,You can use the function CE.b64(str). It encodes a string in Base64 and returns the new encoded string.
+What will CE.randomEmail() return?,The function CE.randomEmail() will generate and return a random email address.
+"What will the CE.hmacSha1Hex(secret, str) function produce?","The CE.hmacSha1Hex(secret, str) function will create an HMAC SHA1 hash of the provided string using the provided secret, and return a hexadecimal string."
+What functionality does the CE.decode64(str) function provide?,The function CE.decode64(str) decodes a Base64 encoded string back to its original form using UTF-8 encoding.
+How is the MD5 hash of a string generated with the CE library?,You can generate an MD5 hash of a string with the CE library using the CE.md5(str) function. This function takes a string as an argument and returns an MD5 hash of the string.
+What are some examples of algorithm and encoding parameters that can be used with the CE.hmac function?,"An example of using the CE.hmac function could be CE.hmacSha1Hex(secret, str) where Sha1 is the algorithm and Hex is the encoding. Other possible values could be algo: Sha256, Md5 and enc: Base64."
+How can you generate a random string using CE library?,You can generate a random string using the function CE.randomString(). It returns a string of approximately 10 random characters.
+How to use the lodash library with the scripts?,"To use the lodash library, it needs to be required in your script."
+Is it possible to use modules from lodash library such as lodash/fp?,"Yes, you can use lodash library modules such as lodash/fp by requiring it in your script."
+What is a HMAC hash and how can it be created?,"HMAC hash is a specific type of message authentication code involving a cryptographic hash function and a secret key. It can be created using CE library with the function CE.hmac(algo)(enc)(secret, str)."
+Could you give an example of how to use a global pre-request hook for all DELETE methods?,"Sure, the following is an example of a pre-request hook that is applied to all DELETE methods:\n//javascript\nif(request_vendor_method === 'DELETE') {
+    request_vendor_headers[""Content-Type""] = ""*/*"";
+    done( {
+        ""request_vendor_headers"": request_vendor_headers
+    } );
+}
+In this example, if the vendor request method is 'DELETE', the 'Content-Type' in the vendor request headers is set to ""/"". Then the done function is called with the request_vendor_headers object, indicating that the API request can continue processing with these modified headers"
+"What is the purpose of the given global pre-request hook? //javascript\nif(request_vendor_method === 'DELETE') {
+request_vendor_headers[""Content-Type""] = ""/"";
+done( {
+""request_vendor_headers"": request_vendor_headers
+} );
+}","The provided global pre-request hook is used for all delete method requests. It checks if the request method is DELETE and if so, it overrides or creates an object with a specific key."
+"What condition does the given pre-request hook check for? \n//javascript\nif(request_vendor_method === 'DELETE') {
+request_vendor_headers[""Content-Type""] = ""/"";
+done( {
+""request_vendor_headers"": request_vendor_headers
+} );
+}",The pre-request hook checks if request_vendor_method equals 'DELETE'.
+"What action does the pre-request hook perform if the condition is met?\n//javascript\nif(request_vendor_method === 'DELETE') {
+request_vendor_headers[""Content-Type""] = ""/"";
+done( {
+""request_vendor_headers"": request_vendor_headers
+} );
+}","If the condition is met, the hook sets the ""Content-Type"" in the request_vendor_headers to ""/"", and then calls the done function with the request_vendor_headers object."
+"How does the 'done' function work in the context of the given pre-request hook example?\n//javascript\nif(request_vendor_method === 'DELETE') {
+request_vendor_headers[""Content-Type""] = ""/"";
+done( {
+""request_vendor_headers"": request_vendor_headers
+} );
+}","If the request_vendor_method is 'DELETE', the done function is called with an object that includes the request_vendor_headers. This indicates that processing of the API request should continue, and the key-value pair in the object will overwrite the existing incoming object."
+"What is request_vendor_headers[""Content-Type""] set to within the pre-request hook?\n//javascript\nif(request_vendor_method === 'DELETE') {
+request_vendor_headers[""Content-Type""] = ""/"";
+done( {
+""request_vendor_headers"": request_vendor_headers
+} );
+}","Within the pre-request hook, request_vendor_headers[""Content-Type""] is set to ""/""."
+"Which method does this pre-request hook apply to?\n//javascript\nif(request_vendor_method === 'DELETE') {
+request_vendor_headers[""Content-Type""] = ""/"";
+done( {
+""request_vendor_headers"": request_vendor_headers
+} );
+}",This pre-request hook applies to all 'DELETE' method requests.
+"Can you give an example of Pre-Request Hook Using Element Configuration for reading a value from the configuration of your element, then manipulating the data that has been posted to an endpoint?","Sure here is an example for the same
+```// Javascript
+var body = JSON.parse(request_vendor_body);
+var contactEmailUpsert = configuration[""contact.emailupsert""];
+if(contactEmailUpsert === false) {
+    done();
+}
+//Updating the body field contact object with upsert=true
+body[""contact""] = {
+    ""upsert"": true
+};
+
+//Converting the object to string and returning
+done({
+    ""request_vendor_body"": JSON.stringify(body),
+    ""continue"": true
+});```"
+Can you provide an example of a pre-request hook that uses the element configuration?,"Yes, here is the example:\n```// Javascript
+var body = JSON.parse(request_vendor_body);
+var contactEmailUpsert = configuration[""contact.emailupsert""];
+if(contactEmailUpsert === false) {
+    done();
+}
+//Updating the body field contact object with upsert=true
+body[""contact""] = {
+    ""upsert"": true
+};
+
+//Converting the object to string and returning
+done({
+    ""request_vendor_body"": JSON.stringify(body),
+    ""continue"": true
+});```
+In this example, when contact.emailupsert in the configuration is not false, it updates a ""contact"": { ""upsert"": true } object into request_vendor_body and then continue with API request processing. "
+"What is the purpose of the given pre-request hook?\n```// Javascript
+var body = JSON.parse(request_vendor_body);
+var contactEmailUpsert = configuration[""contact.emailupsert""];
+if(contactEmailUpsert === false) {
+    done();
+}
+//Updating the body field contact object with upsert=true
+body[""contact""] = {
+    ""upsert"": true
+};
+
+//Converting the object to string and returning
+done({
+    ""request_vendor_body"": JSON.stringify(body),
+    ""continue"": true
+});```",The given pre-request hook reads a value from the configuration of an element and then manipulates data that is posted to an endpoint based on this value.
+"How is the 'configuration' of the element used in the pre-request hook?\n```// Javascript
+var body = JSON.parse(request_vendor_body);
+var contactEmailUpsert = configuration[""contact.emailupsert""];
+if(contactEmailUpsert === false) {
+    done();
+}
+//Updating the body field contact object with upsert=true
+body[""contact""] = {
+    ""upsert"": true
+};
+
+//Converting the object to string and returning
+done({
+    ""request_vendor_body"": JSON.stringify(body),
+    ""continue"": true
+});```","A specific value, contact.emailupsert, is read from the configuration of the element and checked. If contact.emailupsert equals false, the done function is called without any arguments."
+"What action does the pre-request hook perform if contact.emailupsert is false?\n```// Javascript
+var body = JSON.parse(request_vendor_body);
+var contactEmailUpsert = configuration[""contact.emailupsert""];
+if(contactEmailUpsert === false) {
+    done();
+}
+//Updating the body field contact object with upsert=true
+body[""contact""] = {
+    ""upsert"": true
+};
+
+//Converting the object to string and returning
+done({
+    ""request_vendor_body"": JSON.stringify(body),
+    ""continue"": true
+});```","If contact.emailupsert is false, the hook calls the done function without any arguments, indicating that processing of the API request can end here."
+"What changes does the hook make to the body of the request?\n```// Javascript
+var body = JSON.parse(request_vendor_body);
+var contactEmailUpsert = configuration[""contact.emailupsert""];
+if(contactEmailUpsert === false) {
+    done();
+}
+//Updating the body field contact object with upsert=true
+body[""contact""] = {
+    ""upsert"": true
+};
+
+//Converting the object to string and returning
+done({
+    ""request_vendor_body"": JSON.stringify(body),
+    ""continue"": true
+});```","If contactEmailUpsert is not false, the hook updates the contact field in the body of the request with an object containing ""upsert"": true."
+"How does the 'done' function work in this pre-request hook?\n```// Javascript
+var body = JSON.parse(request_vendor_body);
+var contactEmailUpsert = configuration[""contact.emailupsert""];
+if(contactEmailUpsert === false) {
+    done();
+}
+//Updating the body field contact object with upsert=true
+body[""contact""] = {
+    ""upsert"": true
+};
+
+//Converting the object to string and returning
+done({
+    ""request_vendor_body"": JSON.stringify(body),
+    ""continue"": true
+});```","When contactEmailUpsert is not false, the done function is called with an object that includes the updated request_vendor_body and ""continue"": true. This indicates that processing of the API request should continue, and the new object should overwrite the existing one."
+"What data is passed to the 'done' function in the given pre-request hook example?\n```// Javascript
+var body = JSON.parse(request_vendor_body);
+var contactEmailUpsert = configuration[""contact.emailupsert""];
+if(contactEmailUpsert === false) {
+    done();
+}
+//Updating the body field contact object with upsert=true
+body[""contact""] = {
+    ""upsert"": true
+};
+
+//Converting the object to string and returning
+done({
+    ""request_vendor_body"": JSON.stringify(body),
+    ""continue"": true
+});```","In the given pre-request hook example, the 'done' function is called with an object which contains the request_vendor_body now stringified after manipulation and ""continue"": true which indicates that the API request should continue to be processed."
+"What is the purpose of the provided post-response hook?\n```//Javascript\nif(response_headers === null
+  || !(response_status_code === 201
+      || response_status_code === 200)) {
+  done();
+}
+
+//Get the location string from headers
+var location = response_headers[""location""];
+if(location === null) {
+  done();
+}
+//Extract just the id part from the location string
+location = location.replace(""https://someurl/v1/contacts/"","""")
+location = location.replace("".json"","""");
+
+//Construct the response body
+var response = {
+  ""id"": location
+};
+
+//return the response body
+done({
+  ""response_body"": response
+});```","The post-response hook aims to read the response headers to retrieve a value from it, extracts this value as an ID and sends it back as a response."
+"Under what condition does the given hook execute?\n```//javascript\nif(response_headers === null
+  || !(response_status_code === 201
+      || response_status_code === 200)) {
+  done();
+}
+
+//Get the location string from headers
+var location = response_headers[""location""];
+if(location === null) {
+  done();
+}
+//Extract just the id part from the location string
+location = location.replace(""https://someurl/v1/contacts/"","""")
+location = location.replace("".json"","""");
+
+//Construct the response body
+var response = {
+  ""id"": location
+};
+
+//return the response body
+done({
+  ""response_body"": response
+});```",The hook executes if the response_headers is not null and the response_status_code is either 201 or 200.
+"What does the post-response hook do if the response_headers is null or the response_status_code is neither 200 nor 201?```
+// Javascript
+if(response_headers === null
+  || !(response_status_code === 201
+      || response_status_code === 200)) {
+  done();
+}
+
+//Get the location string from headers
+var location = response_headers[""location""];
+if(location === null) {
+  done();
+}
+//Extract just the id part from the location string
+location = location.replace(""https://someurl/v1/contacts/"","""")
+location = location.replace("".json"","""");
+
+//Construct the response body
+var response = {
+  ""id"": location
+};
+
+//return the response body
+done({
+  ""response_body"": response
+});
+```","If the response_headers is null or the response_status_code is neither 200 nor 201, the hook simply ends the function by calling the done function without any arguments."
+"How does the hook process the location from response_headers?```
+// Javascript
+if(response_headers === null
+  || !(response_status_code === 201
+      || response_status_code === 200)) {
+  done();
+}
+
+//Get the location string from headers
+var location = response_headers[""location""];
+if(location === null) {
+  done();
+}
+//Extract just the id part from the location string
+location = location.replace(""https://someurl/v1/contacts/"","""")
+location = location.replace("".json"","""");
+
+//Construct the response body
+var response = {
+  ""id"": location
+};
+
+//return the response body
+done({
+  ""response_body"": response
+});
+```","The hook retrieves location from response_headers. Then, if location is not null, it replaces parts of the string to extract just the ID part from the location string."
+"How is a response constructed in the given post-response hook?```
+// Javascript
+if(response_headers === null
+  || !(response_status_code === 201
+      || response_status_code === 200)) {
+  done();
+}
+
+//Get the location string from headers
+var location = response_headers[""location""];
+if(location === null) {
+  done();
+}
+//Extract just the id part from the location string
+location = location.replace(""https://someurl/v1/contacts/"","""")
+location = location.replace("".json"","""");
+
+//Construct the response body
+var response = {
+  ""id"": location
+};
+
+//return the response body
+done({
+  ""response_body"": response
+});
+```","A response is constructed by creating an object with an id key, and the value is the location variable which has been processed to represent an ID."
+"How does the hook return the response body?```
+// Javascript
+if(response_headers === null
+  || !(response_status_code === 201
+      || response_status_code === 200)) {
+  done();
+}
+
+//Get the location string from headers
+var location = response_headers[""location""];
+if(location === null) {
+  done();
+}
+//Extract just the id part from the location string
+location = location.replace(""https://someurl/v1/contacts/"","""")
+location = location.replace("".json"","""");
+
+//Construct the response body
+var response = {
+  ""id"": location
+};
+
+//return the response body
+done({
+  ""response_body"": response
+});
+```",The done function is called with an object that includes the response body. This object will replace the existing outgoing object in the response.
+Can you provide an example of a post-response hook that reads response headers?,"Yes, here is the example:```
+// Javascript
+if(response_headers === null
+  || !(response_status_code === 201
+      || response_status_code === 200)) {
+  done();
+}
+
+//Get the location string from headers
+var location = response_headers[""location""];
+if(location === null) {
+  done();
+}
+//Extract just the id part from the location string
+location = location.replace(""https://someurl/v1/contacts/"","""")
+location = location.replace("".json"","""");
+
+//Construct the response body
+var response = {
+  ""id"": location
+};
+
+//return the response body
+done({
+  ""response_body"": response
+});
+```
+In this script, it processes the location from response_headers if the preconditions are met, constructs a response body using the processed location, and calls the done function to return the response."
+"What is the purpose of the given script?\n```
+// Javascript
+let headers = {
+  ""Content-Type"": null
+};
+
+done({
+  ""request_vendor_headers"": headers
+)};
+```",The script removes the Content-Type header from the request. This is typically done if the service provider cannot handle specific headers like Accept or Content-Type.
+What is the default behavior concerning headers in the requests?,"By default, headers include ""Accept: application/json"" and ""Content-Type: application/json""."
+In what scenario would it be necessary to remove headers like Accept or Content-Type?,It is necessary to remove headers like Accept or Content-Type if the service provider cannot handle these headers.
+"How does the provided script modify headers?\n```
+// Javascript
+let headers = {
+  ""Content-Type"": null
+};
+
+done({
+  ""request_vendor_headers"": headers
+)};
+```","In the given script, the ""Content-Type"" header is set to null."
+"How is the updated headers object returned from the given function?\n```
+// Javascript
+let headers = {
+  ""Content-Type"": null
+};
+
+done({
+  ""request_vendor_headers"": headers
+)};
+```","The updated headers object is returned from the function by calling the done function with an object that includes the updated ""request_vendor_headers""."
+Can you provide an example of how to remove the Content-Type header?,"Yes, here is the example:\n```
+// Javascript
+let headers = {
+  ""Content-Type"": null
+};
+
+done({
+  ""request_vendor_headers"": headers
+)};
+```"
+"What is the purpose of the given example script?\n```js
+const https = require('https');
+//Get SFDC element from CE and return the results
+https.get('https://api.cloud-elements.com/elements/api-v2/elements/sfdc', (res) => {
+  console.log('after response');
+    let rawData = '';
+    res.on('data', (chunk) => rawData += chunk);
+    res.on('end', () => {
+      try {
+        let parsedData = JSON.parse(rawData);
+        done({ ""response_body"": parsedData });
+      } catch (e) {
+        console.log(e.message);
+        done({ ""response_error"": e.message});
+      }
+    });
+});
+```","The script uses the HTTPS library to make requests from a hook to an HTTPS endpoint. In this case, it fetches data about the 'SFDC' element from the Cloud Elements API."
+"Which library is used to make requests in this script?\n```js
+const https = require('https');
+//Get SFDC element from CE and return the results
+https.get('https://api.cloud-elements.com/elements/api-v2/elements/sfdc', (res) => {
+  console.log('after response');
+    let rawData = '';
+    res.on('data', (chunk) => rawData += chunk);
+    res.on('end', () => {
+      try {
+        let parsedData = JSON.parse(rawData);
+        done({ ""response_body"": parsedData });
+      } catch (e) {
+        console.log(e.message);
+        done({ ""response_error"": e.message});
+      }
+    });
+});
+```",The 'https' library is used to make requests in the script.
+"Upon receiving a response from the API call, what events are set up and what are their actions in the given script?\n```js
+const https = require('https');
+//Get SFDC element from CE and return the results
+https.get('https://api.cloud-elements.com/elements/api-v2/elements/sfdc', (res) => {
+  console.log('after response');
+    let rawData = '';
+    res.on('data', (chunk) => rawData += chunk);
+    res.on('end', () => {
+      try {
+        let parsedData = JSON.parse(rawData);
+        done({ ""response_body"": parsedData });
+      } catch (e) {
+        console.log(e.message);
+        done({ ""response_error"": e.message});
+      }
+    });
+});
+```","Two events are set up: 'data' event appends any chunks of data received into rawData, and 'end' event parses rawData and calls the done function with the parsed data or catches and logs any errors that occur during the parsing process."
+"How is the body of the response retrieved from the 'res' object in the given script?\n```js
+const https = require('https');
+//Get SFDC element from CE and return the results
+https.get('https://api.cloud-elements.com/elements/api-v2/elements/sfdc', (res) => {
+  console.log('after response');
+    let rawData = '';
+    res.on('data', (chunk) => rawData += chunk);
+    res.on('end', () => {
+      try {
+        let parsedData = JSON.parse(rawData);
+        done({ ""response_body"": parsedData });
+      } catch (e) {
+        console.log(e.message);
+        done({ ""response_error"": e.message});
+      }
+    });
+});
+```",The body of the response is retrieved from the 'res' object by listening for 'data' events and concatenating any data chunks received to rawData.
+"How is the data from the API call processed in this script?\n```js
+const https = require('https');
+//Get SFDC element from CE and return the results
+https.get('https://api.cloud-elements.com/elements/api-v2/elements/sfdc', (res) => {
+  console.log('after response');
+    let rawData = '';
+    res.on('data', (chunk) => rawData += chunk);
+    res.on('end', () => {
+      try {
+        let parsedData = JSON.parse(rawData);
+        done({ ""response_body"": parsedData });
+      } catch (e) {
+        console.log(e.message);
+        done({ ""response_error"": e.message});
+      }
+    });
+});
+```","Once all data has been received (identified by the 'end' event), the data ('rawData') is parsed into a JavaScript object using JSON.parse(). If the parsing is successful, the parsed data is passed on by calling the done function with an object that includes the parsed data as the ""response_body""."
+"What happens if an error occurs while parsing the data from the API call?\n```js
+const https = require('https');
+//Get SFDC element from CE and return the results
+https.get('https://api.cloud-elements.com/elements/api-v2/elements/sfdc', (res) => {
+  console.log('after response');
+    let rawData = '';
+    res.on('data', (chunk) => rawData += chunk);
+    res.on('end', () => {
+      try {
+        let parsedData = JSON.parse(rawData);
+        done({ ""response_body"": parsedData });
+      } catch (e) {
+        console.log(e.message);
+        done({ ""response_error"": e.message});
+      }
+    });
+});
+```","If an error occurs while parsing the data, the error message is logged in the console and the done function is called with an object that includes error message as ""response_error""."
+Can you provide an example of how to use the HTTPS library to make requests from a hook to an HTTPS endpoint?,"Yes, here is the example:\n```js
+const https = require('https');
+//Get SFDC element from CE and return the results
+https.get('https://api.cloud-elements.com/elements/api-v2/elements/sfdc', (res) => {
+  console.log('after response');
+    let rawData = '';
+    res.on('data', (chunk) => rawData += chunk);
+    res.on('end', () => {
+      try {
+        let parsedData = JSON.parse(rawData);
+        done({ ""response_body"": parsedData });
+      } catch (e) {
+        console.log(e.message);
+        done({ ""response_error"": e.message});
+      }
+    });
+});
+```"
